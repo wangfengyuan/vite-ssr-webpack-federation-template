@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+      "jsx": "preserve",
+      "moduleResolution": "node",
+      "target": "es5",
+      "module": "esnext",
+      "declaration": false,
+      "sourceMap": true,
+      "experimentalDecorators": true,
+      "outDir": "dist",
+      "lib": ["esnext", "dom"],
+      "noImplicitAny": true,
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "typeRoots": [
+          "node_modules/@types",
+          "./typings"
+      ]
+  },
+  "exclude": ["node_modules", "dist"]
+}
