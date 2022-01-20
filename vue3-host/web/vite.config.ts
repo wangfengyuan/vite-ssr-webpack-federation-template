@@ -8,10 +8,11 @@ import AutoImport from 'unplugin-auto-import/vite';
 import federation from '@originjs/vite-plugin-federation';
 import compress from 'vite-plugin-compress';
 import { minifyHtml } from 'vite-plugin-html';
+import Inspect from 'vite-plugin-inspect';
 
 export default defineConfig({
   root: resolve(process.cwd(), 'web'),
-  base: '/apps/',
+  base: (process.env.NODE_ENV = 'test' ? '' : '/apps/vip/'),
   resolve: {
     alias: {
       '~/': `${resolve(__dirname, 'src')}/`,
@@ -55,17 +56,17 @@ export default defineConfig({
         speed: 4,
       },
     }),
+    Inspect(),
   ],
 
   optimizeDeps: {
-    include: ['vue', 'vue-router', '@vueuse/core'],
+    include: ['vue', 'vue-router', '@vueuse/core', 'lodash-es'],
     exclude: ['vue2remote/Header', 'vue2remote/Footer'],
   },
   build: {
     rollupOptions: {
       input: {
         home: resolve(__dirname, 'home.html'),
-        pointsmall: resolve(__dirname, 'pointsmall.html'),
       },
       output: {
         chunkFileNames: 'js/[name]-[hash].js',
@@ -87,6 +88,14 @@ export default defineConfig({
           return '[ext]/[name]-[hash].[ext]';
         },
       },
+    },
+  },
+  test: {
+    global: true,
+    include: ['test/**/*.test.ts'],
+    environment: 'jsdom',
+    deps: {
+      inline: ['@vue', '@vueuse', 'vue-demi'],
     },
   },
 });

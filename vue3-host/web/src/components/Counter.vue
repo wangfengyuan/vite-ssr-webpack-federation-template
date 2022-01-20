@@ -1,21 +1,25 @@
-<template lang="">
+<script setup lang="ts">
+  const props = defineProps<{
+    initial: number
+  }>()
+  
+  const { count, inc, dec } = useCounter(props.initial)
+  const router = useRouter()
+  const myInc = () => {
+    inc()
+    router.push({ path: 'privileges', hash: '#003' })
+  };
+</script>
+
+<template>
   <div>
-    <button type="button" @click="decrease">-1</button>
-    count is: {{ counter }}
-    <button type="button" @click="increase">+1</button>
+    {{ count }}
+    <button class="inc" @click="myInc()">
+      +
+    </button>
+    <button class="dec" @click="dec()">
+      -
+    </button>
   </div>
 </template>
-<script lang='ts'>
-import { useCounter } from '~/composables';
-export default defineComponent({
-  name: 'Counter',
-  setup() {
-    return { 
-      ...toRefs(useCounter()),
-    }
-  }
-})
-</script>
-<style lang="">
   
-</style>

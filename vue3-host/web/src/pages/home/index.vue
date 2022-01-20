@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts" setup>
-const router = useRouter()
-const goAbout = () => router.push('./about');
+const router = useRouter();
+const goAbout = () => router.push('./about')
 </script>
 <route lang="yaml">
 meta:
